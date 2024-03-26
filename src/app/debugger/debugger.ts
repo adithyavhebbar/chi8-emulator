@@ -1,15 +1,17 @@
-export class Debugger {
-    private executedInstructions: string[] = [];
+import { IDebugInfo } from "../core/Renderer";
 
-    constructor(instructions: string[] = []) {
+export class Debugger {
+    private executedInstructions: IDebugInfo[] = [];
+
+    constructor(instructions: IDebugInfo[] = []) {
         this.executedInstructions = instructions;
     }
 
-    public addInstruction(instruction: string) {
+    public addInstruction(instruction: IDebugInfo) {
         this.executedInstructions.push(instruction);
     }
 
-    public getAllInstructions(): string[] {
+    public getAllInstructions(): IDebugInfo[] {
         return this.executedInstructions;
     }
 }

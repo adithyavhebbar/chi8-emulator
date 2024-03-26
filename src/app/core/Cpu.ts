@@ -96,9 +96,13 @@ export class Cpu {
         for (let i = 0; i < this.speed; i++) {
             if (!this.paused) {
                 let opcode = (this.memory[this.programCounter] << 8 | this.memory[this.programCounter + 1]);
-                if (this.debug) {
-                    this.debug.addInstruction(opcode.toString(16));
-                }
+                // if (this.debug) {
+                //     this.debug.addInstruction({
+                //         opcode: opcode,
+                //         registers: this.registers.slice(),
+                //         stackTop: this.stack.peek()
+                //     });
+                // }
                 this.executeInstruction(opcode)
             }
         }
@@ -109,18 +113,25 @@ export class Cpu {
 
         this.playSound();
         this.renderer.render();
+        if (this.debug) {
+            this.renderer.displayDebugInfo();
+        }
     }
 
     public executeInstruction(opcode: number) {
         try {
 
             this.programCounter += 2;
+
             // if (this.programCounter > this.memory.length) {
             //     this.programCounter = this.startingAddress;
             // }
 
-            let x = (opcode >> 8) & 0x000F;
-            let y = (opcode >> 4) & 0x000F;
+            // We only need the 2nd nibble, so grab the value of the 2nd nibble and shift it right 8 bits to get rid of everything but that 2nd nibble.
+            let x = (opcode & 0x0F00) >> 8;
+
+            // We only need the 3rd nibble, so grab the value of the 3rd nibble and shift it right 4 bits to get rid of everything but that 3rd nibble.
+            let y = (opcode & 0x00F0) >> 4;
 
             switch (opcode & 0xF000) {
                 case 0x0000:

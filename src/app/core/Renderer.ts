@@ -1,3 +1,11 @@
+import { Debugger } from "../debugger/debugger";
+
+export interface IDebugInfo {
+    opcode: number
+    stackTop: number
+    registers: Uint8Array
+}
+
 export class Renderer {
 
     private scale: number;
@@ -9,12 +17,17 @@ export class Renderer {
 
     private display: number[] = [];
 
-    constructor(scale: number) {
+    private debugDiv: HTMLDivElement;
+    private debug: Debugger = null;
+    private debugInfo: IDebugInfo[] = [];
+
+    constructor(scale: number, debug: Debugger = null) {
         this.scale = scale;
         this.rows = 32;
         this.cols = 64;
-
+        this.debug = debug;
         this.initCanvas();
+        this.initDebugCanvas();
     }
 
     private initCanvas() {
@@ -27,22 +40,30 @@ export class Renderer {
         this.display = new Array(this.cols * this.rows);
     }
 
+    private initDebugCanvas() {
+        this.debugDiv = document.getElementById('debugger') as HTMLDivElement;
+    }
+
+    public addNewDebugInfo(debugInfo: IDebugInfo) {
+        this.debugInfo.push(debugInfo);
+    }
+
     public setPixel(x: number, y: number) {
         // If the numbers reach outside the boundary of display
         // we need wrap around the values to next row or column
 
         if (x > this.cols) {
-            x = - this.cols;
+            x -= this.cols;
         }
         if (x < 0) {
-            x = + this.cols;
+            x += this.cols;
         }
 
         if (y > this.rows) {
-            y = - this.rows;
+            y -= this.rows;
         }
         if (y < 0) {
-            y = + this.rows;
+            y += this.rows;
         }
 
         let pixelLocation = x + (y * this.cols);
@@ -71,4 +92,15 @@ export class Renderer {
         }
     }
 
+    public displayDebugInfo() {
+        if (this.debug) {
+            // Iterate through each string in the list and draw it on canvas
+            this.debug.getAllInstructions().forEach((info) => {
+                const div = document.createElement('div');
+                div.textContent = info.opcode.toString(16);
+                div.classList.add('textItem');
+                this.debugDiv.appendChild(div);
+            });
+        }
+    }
 }

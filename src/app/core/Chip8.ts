@@ -3,11 +3,13 @@ import { Keyboard } from './Keyboard';
 import { Speaker } from './Speaker';
 import { RomLoaderService } from '../rom-loader.service';
 import { Cpu } from './Cpu';
+import { Debugger } from '../debugger/debugger';
 
 export class Chip8 {
 
     private renderer: Renderer;
     private keyBoard: Keyboard;
+    private debug: Debugger;
 
     private fpsInterval: number = 0;
     private fps: number = 60;
@@ -22,10 +24,11 @@ export class Chip8 {
 
     private isRomLoaded: boolean = false;
     constructor(private romLoader: RomLoaderService) {
-        this.renderer = new Renderer(14);
+        this.debug = null;
+        this.renderer = new Renderer(10, this.debug);
         this.keyBoard = new Keyboard();
         this.speaker = new Speaker();
-        this.cpu = new Cpu(this.renderer, this.speaker, this.keyBoard);
+        this.cpu = new Cpu(this.renderer, this.speaker, this.keyBoard, this.debug);
         this.init();
     }
 
@@ -59,7 +62,7 @@ export class Chip8 {
     }
 
     loadRomToMemory() {
-        this.romLoader.getRom('PONG').subscribe({
+        this.romLoader.getRom('chiptest.ch8').subscribe({
             next: (rom) => {
                 this.cpu.loadROM(rom);
                 this.isRomLoaded = true;

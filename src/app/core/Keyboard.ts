@@ -40,7 +40,7 @@ export class Keyboard {
     public onKeyDown(event: KeyboardEvent) {
         let keyCode = event.keyCode;
         let key = this.keyMap[keyCode];
-        if (key) {
+        if (key !== undefined && key !== null) {
             this.keyPressed[key] = true;
 
             if (this.onNextKeyPress !== null && key) {
@@ -55,7 +55,7 @@ export class Keyboard {
         let keyCode = event.keyCode;
         let key = this.keyMap[keyCode];
 
-        if (key) {
+        if (key !== undefined && key !== null) {
             this.keyPressed[key] = false;
         }
     }

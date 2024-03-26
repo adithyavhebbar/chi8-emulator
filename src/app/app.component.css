@@ -1,3 +1,8 @@
 canvas {
     border: 2px solid black;
 }
+#debugger {
+    width: 400px; /* Set the desired width */
+    height: 200px;
+    overflow: scroll;
+}

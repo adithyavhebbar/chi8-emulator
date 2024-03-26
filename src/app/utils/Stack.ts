@@ -25,7 +25,7 @@ export class Stack<T> {
      * Retrieve the element at the top of the stack. This operation will remove the element at the top and return the element
      */
     public remove(): T {
-        const topElement = this.stack.slice(this.stack.length - 1, 1);
+        const topElement = this.stack.splice(this.stack.length - 1, 1);
         return topElement[0];
     }
 
