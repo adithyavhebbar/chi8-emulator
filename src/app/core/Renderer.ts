@@ -21,6 +21,10 @@ export class Renderer {
     private debug: Debugger = null;
     private debugInfo: IDebugInfo[] = [];
 
+    private fillColor = '#000000';
+
+    gifs: string[] = [];
+
     constructor(scale: number, debug: Debugger = null) {
         this.scale = scale;
         this.rows = 32;
@@ -79,13 +83,15 @@ export class Renderer {
 
     public render() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.ctx.fillStyle = this.fillColor;
+        this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
         for (let i = 0; i < this.display.length; i++) {
             let x = (i % this.cols) * this.scale;
 
             let y = Math.floor(i / this.cols) * this.scale;
 
             if (this.display[i]) {
-                this.ctx.fillStyle = '#000';
+                this.ctx.fillStyle = '#ffffff';
 
                 this.ctx.fillRect(x, y, this.scale, this.scale);
             }

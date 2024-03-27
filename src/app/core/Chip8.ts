@@ -22,6 +22,8 @@ export class Chip8 {
 
     private cpu: Cpu;
 
+    private romName = 'Airplane.ch8'
+    private romNameElement: HTMLHeadingElement;
     private isRomLoaded: boolean = false;
     constructor(private romLoader: RomLoaderService) {
         this.debug = null;
@@ -45,7 +47,16 @@ export class Chip8 {
         // this.speaker.play(0);
 
         this.loop = requestAnimationFrame(this.step.bind(this));
-        this.loadRomToMemory()
+        this.loadRomToMemory();
+        this.initRomNameDisplay();
+    }
+
+    public initRomNameDisplay() {
+        window.addEventListener('DOMContentLoaded', (event) => {
+            console.log('DOM fully loaded and parsed');
+            this.romNameElement = document.querySelector('h3');
+            this.displayRomName();
+        });
     }
 
     private step() {
@@ -62,7 +73,7 @@ export class Chip8 {
     }
 
     loadRomToMemory() {
-        this.romLoader.getRom('chiptest.ch8').subscribe({
+        this.romLoader.getRom(this.romName).subscribe({
             next: (rom) => {
                 this.cpu.loadROM(rom);
                 this.isRomLoaded = true;
@@ -72,5 +83,9 @@ export class Chip8 {
                 throw new Error('Cannot Load ROM');
             }
         });
+    }
+
+    displayRomName() {
+        this.romNameElement.innerHTML = `ROM:   ${this.romName}`;
     }
 }

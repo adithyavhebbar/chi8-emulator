@@ -24,7 +24,7 @@ export class Cpu {
 
     // Flag is true if the instructions are paused
     private paused: boolean = false;
-    private speed: number = 10;
+    private speed: number = 5;
 
     private startingAddress: number;
     constructor(renderer: Renderer, speaker: Speaker, keyBoard: Keyboard, debug: Debugger = null) {

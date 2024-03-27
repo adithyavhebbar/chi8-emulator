@@ -1,8 +1,76 @@
 canvas {
-    border: 2px solid black;
+    border: 2px solid white;
 }
+
 #debugger {
-    width: 400px; /* Set the desired width */
+    width: 400px;
+    /* Set the desired width */
     height: 200px;
     overflow: scroll;
+}
+
+h1 {
+    font-family: "lucida console";
+    color: #00bfff;
+}
+
+h3 {
+    font-family: "lucida console";
+    color: #00bfff;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container>div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+pre {
+    color: lightgreen;
+}
+
+.container-info {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 8px;
+    color: white;
+    box-shadow: 0 0 10px white;
+}
+
+.container-info > h1 {
+    color: lightgreen;
+    text-align: center;
+}
+
+.controls {
+    margin-top: 20px;
+    line-height: 1.6;
+}
+
+.controls p {
+    margin-bottom: 10px;
+}
+
+.control-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.control-table th,
+.control-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+.control-table th {
+    background-color: lightgreen;
+    color: white;
 }
