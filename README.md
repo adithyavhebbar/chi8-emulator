@@ -29,6 +29,6 @@ Chip-8 is an interpreted programming language primarily used to create simple vi
 - **Legacy**: While Chip-8 was never widely used for commercial software development, it has had a significant influence on later programming languages and platforms.
 - **Modern Usage**: Chip-8 continues to be used for educational purposes, as a simple introduction to programming and computer architecture.
 
-## Example GIF
+## Running Example
 
 ![Chip-8 Example](images/Aeroplane.gif)
